@@ -1,0 +1,62 @@
+.mab {
+  display: none;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 200;
+  background: var(--espresso);
+  border-top: 1px solid rgba(247,239,228,0.10);
+  grid-template-columns: repeat(4, 1fr);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+  box-shadow: 0 -4px 20px rgba(0,0,0,0.25);
+}
+
+@media (max-width: 768px) {
+  .mab { display: grid; }
+}
+
+.mab__btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.28rem;
+  padding: 0.7rem 0.4rem;
+  min-height: 56px;
+  color: rgba(247,239,228,0.55);
+  text-decoration: none;
+  font-size: 0.6rem;
+  font-weight: 600;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  transition: color 0.18s, background 0.18s;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+}
+
+.mab__btn:hover,
+.mab__btn:active {
+  color: var(--cream);
+  background: rgba(247,239,228,0.06);
+}
+
+/* Foglalás — filled accent emphasis */
+.mab__btn--primary {
+  background: var(--accent);
+  color: #fff;
+  border-radius: 0;
+}
+
+.mab__btn--primary:hover,
+.mab__btn--primary:active {
+  background: var(--accent-lt);
+  color: #fff;
+}
+
+/* Body padding so no section is hidden behind the bar */
+@media (max-width: 768px) {
+  body {
+    padding-bottom: calc(56px + env(safe-area-inset-bottom, 0px));
+  }
+}

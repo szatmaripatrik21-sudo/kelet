@@ -1,0 +1,266 @@
+/* ── FloatingMedia ───────────────────────────────────── */
+
+.fm {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+/* Lift entire layer above hero text when a card is expanded */
+.fm--has-expanded {
+  z-index: 3;
+  overflow: visible;
+}
+
+/* ── Card wrappers ───────────────────────────────────── */
+.fm__card-wrap {
+  position: absolute;
+  animation: fmEnter 0.9s cubic-bezier(0.22,1,0.36,1) var(--enter-delay, 0.5s) both;
+}
+
+@keyframes fmEnter {
+  from { opacity: 0; transform: translateY(24px) scale(0.96); }
+  to   { opacity: 1; transform: translateY(0)    scale(1); }
+}
+
+/*
+  Desktop positions — clamp(min, fluid, max) for each card.
+  Cards frame the centered text; they may partially clip at edges.
+*/
+.fm__card-wrap--1 {
+  top:  7%; left: 9%;
+  width:  clamp(210px, 18vw, 340px);
+  height: clamp(150px, 13vw, 250px);
+}
+.fm__card-wrap--2 {
+  top: 26%; left: 5%;
+  width:  clamp(130px, 12vw, 230px);
+  height: clamp(100px,  9vw, 170px);
+}
+.fm__card-wrap--3 {
+  top:  6%; right: 8%;
+  width:  clamp(220px, 20vw, 380px);
+  height: clamp(170px, 15vw, 290px);
+}
+.fm__card-wrap--4 {
+  bottom: 4%; left: 8%;
+  width:  clamp(240px, 22vw, 420px);
+  height: clamp(170px, 16vw, 300px);
+}
+.fm__card-wrap--5 {
+  bottom: 3%; right: 7%;
+  width:  clamp(250px, 23vw, 440px);
+  height: clamp(180px, 17vw, 320px);
+}
+
+/* ── Float animation layer ───────────────────────────── */
+.fm__float {
+  width: 100%;
+  height: 100%;
+  animation: fmFloat var(--float-dur, 7s) ease-in-out var(--float-delay, 0s) infinite;
+}
+
+@keyframes fmFloat {
+  0%, 100% { transform: translateY(0px); }
+  50%       { transform: translateY(-6px); }
+}
+
+/* ── Parallax layer ──────────────────────────────────── */
+.fm__parallax {
+  width: 100%;
+  height: 100%;
+  transition: transform 0.35s ease-out;
+}
+
+/* ── Expanded card-wrap sits above siblings ───────────── */
+.fm__card-wrap--expanded {
+  z-index: 10;
+}
+
+/* ── Visual card ─────────────────────────────────────── */
+.fm__card {
+  width: 100%;
+  height: 100%;
+  border-radius: 24px;
+  overflow: hidden;
+  position: relative;
+  transform: rotate(var(--rotation, 0deg));
+  box-shadow:
+    0 30px 80px rgba(36,20,14,0.18),
+    0 6px  20px rgba(36,20,14,0.10),
+    inset 0 1px 0 rgba(255,255,255,0.14);
+  border: 1px solid rgba(36,20,14,0.07);
+  transition: transform 0.45s cubic-bezier(0.22,1,0.36,1),
+              box-shadow 0.45s cubic-bezier(0.22,1,0.36,1);
+  /* Cards receive hover/click even though .fm is pointer-events:none */
+  pointer-events: auto;
+  cursor: zoom-in;
+}
+
+.fm__card:hover:not(.fm__card--expanded) {
+  transform: rotate(var(--rotation, 0deg)) scale(1.03);
+  box-shadow:
+    0 40px 100px rgba(36,20,14,0.22),
+    0 8px   24px rgba(36,20,14,0.12),
+    inset 0 1px 0 rgba(255,255,255,0.18);
+}
+
+/* Expanded — a bit bigger, elevated shadow, zoom-out cursor */
+.fm__card--expanded {
+  transform: rotate(var(--rotation, 0deg)) scale(1.2);
+  box-shadow:
+    0 50px 120px rgba(36,20,14,0.26),
+    0 12px  32px rgba(36,20,14,0.14),
+    inset 0 1px 0 rgba(255,255,255,0.2);
+  cursor: zoom-out;
+}
+
+/* ── Image ───────────────────────────────────────────── */
+.fm__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  /* objectPosition set inline per card */
+}
+
+/* ── Gradient fallback label (no image) ──────────────── */
+.fm__fallback-label {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  padding: 0.75rem 1rem;
+  background: linear-gradient(to top, rgba(36,20,14,0.70) 0%, transparent 100%);
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.fm__fallback-title {
+  font-family: var(--serif, serif);
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: rgba(247,239,228,0.95);
+  line-height: 1.2;
+}
+
+.fm__fallback-sub {
+  font-size: 0.62rem;
+  color: rgba(247,239,228,0.6);
+  letter-spacing: 0.05em;
+}
+
+/* ── Reduced motion ──────────────────────────────────── */
+.fm__float--reduced { animation: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  .fm__card-wrap { animation: none; opacity: 1; }
+  .fm__float { animation: none; }
+  .fm__card { transition: none; }
+}
+
+/* ── 1200px — pull cards slightly inward ─────────────── */
+@media (max-width: 1200px) {
+  .fm__card-wrap--1 { left: 4%; }
+  .fm__card-wrap--2 { left: 2%; }
+  .fm__card-wrap--3 { right: 4%; }
+  .fm__card-wrap--4 { left: 3%; }
+  .fm__card-wrap--5 { right: 3%; }
+}
+
+/* ── Mobile (≤ 767px) — hidden; Hero renders its own image strip ── */
+@media (max-width: 767px) {
+  .fm { display: none; }
+}
+
+/* ── Lightbox ────────────────────────────────────────── */
+.fm__lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: rgba(20, 10, 5, 0.88);
+  backdrop-filter: blur(6px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  animation: lbIn 0.3s cubic-bezier(0.22,1,0.36,1) both;
+}
+
+@keyframes lbIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+.fm__lightbox-close {
+  position: absolute;
+  top: 1.25rem;
+  right: 1.25rem;
+  width: 44px;
+  height: 44px;
+  border: none;
+  background: rgba(247,239,228,0.12);
+  color: rgba(247,239,228,0.85);
+  font-size: 1.1rem;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s;
+  z-index: 1;
+}
+.fm__lightbox-close:hover {
+  background: rgba(247,239,228,0.22);
+}
+
+.fm__lightbox-inner {
+  position: relative;
+  max-width: min(90vw, 860px);
+  max-height: 85vh;
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: 0 40px 120px rgba(0,0,0,0.55);
+  animation: lbScale 0.35s cubic-bezier(0.22,1,0.36,1) both;
+}
+
+@keyframes lbScale {
+  from { transform: scale(0.88); opacity: 0; }
+  to   { transform: scale(1);    opacity: 1; }
+}
+
+.fm__lightbox-img,
+.fm__lightbox-gradient {
+  display: block;
+  width: 100%;
+  max-height: 78vh;
+  object-fit: cover;
+}
+
+.fm__lightbox-gradient {
+  aspect-ratio: 4/3;
+}
+
+.fm__lightbox-caption {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  padding: 1.25rem 1.5rem;
+  background: linear-gradient(to top, rgba(20,10,5,0.80) 0%, transparent 100%);
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.fm__lightbox-title {
+  font-family: var(--serif, serif);
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: rgba(247,239,228,0.95);
+}
+.fm__lightbox-sub {
+  font-size: 0.78rem;
+  color: rgba(247,239,228,0.6);
+  letter-spacing: 0.06em;
+}
+

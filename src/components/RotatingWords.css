@@ -1,0 +1,119 @@
+/* RotatingWords — CSS character-level slide animation */
+
+.rw {
+  display: inline-flex;
+  align-items: baseline;
+  position: relative;
+}
+
+.rw__visual {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+}
+
+.rw__word {
+  display: inline-flex;
+  align-items: baseline;
+}
+
+/* Each character is clipped so it slides in/out of its own window */
+.rw__clip {
+  display: inline-block;
+  overflow: hidden;
+  /* height must contain the character; line-height of 1.15 covers most glyphs */
+  height: 1.15em;
+  vertical-align: bottom;
+}
+
+.rw__char {
+  display: inline-block;
+  line-height: 1.15;
+}
+
+/* Idle — no animation; character sits at rest */
+.rw__char--idle {
+  animation: none;
+}
+
+/* Exit — slide upward out of clip */
+.rw__char--exit {
+  animation: rwExit 0.3s cubic-bezier(0.55, 0, 0.8, 0) both;
+}
+
+/* Enter — slide up into clip from below */
+.rw__char--enter {
+  animation: rwEnter 0.48s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes rwEnter {
+  from {
+    transform: translateY(110%);
+    opacity: 0;
+    filter: blur(4px);
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+    filter: blur(0px);
+  }
+}
+
+@keyframes rwExit {
+  from {
+    transform: translateY(0);
+    opacity: 1;
+    filter: blur(0px);
+  }
+  to {
+    transform: translateY(-120%);
+    opacity: 0;
+    filter: blur(4px);
+  }
+}
+
+/* Non-breaking space between words */
+.rw__space {
+  display: inline-block;
+  width: 0.28em;
+}
+
+/* ── Crossfade mode ──────────────────────────────────── */
+.rw--crossfade {
+  display: block;
+  position: relative;
+}
+
+.rw__cf {
+  display: block;
+  transition: opacity 0.35s ease, transform 0.38s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: opacity, transform;
+}
+
+.rw__cf--in {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.rw__cf--out {
+  opacity: 0;
+  transform: translateY(-10px);
+}
+
+/* Reduced motion — fade only, no slide */
+@media (prefers-reduced-motion: reduce) {
+  .rw__clip { overflow: visible; height: auto; }
+  .rw__char--exit  { animation: rwFadeOut 0.15s ease both; }
+  .rw__char--enter { animation: rwFadeIn  0.2s ease both; }
+
+  @keyframes rwFadeOut {
+    from { opacity: 1; }
+    to   { opacity: 0; }
+  }
+  @keyframes rwFadeIn {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+  }
+
+  .rw__cf { transition: none; opacity: 1; transform: none; }
+}

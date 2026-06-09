@@ -1,0 +1,82 @@
+.story {
+  padding-block: var(--section-pad);
+  background: var(--cream);
+}
+
+.story__inner { }
+
+.story__head {
+  max-width: 680px;
+  margin-bottom: clamp(3rem, 6vw, 5rem);
+}
+
+.story__title {
+  font-size: clamp(2rem, 4.5vw, 3.5rem);
+  font-weight: 700;
+  color: var(--espresso);
+  margin-bottom: 1.25rem;
+  letter-spacing: -0.02em;
+}
+
+.story__copy {
+  font-size: clamp(1rem, 1.6vw, 1.075rem);
+  line-height: 1.8;
+  color: var(--text-mid);
+  max-width: 560px;
+}
+
+/* ── Cards grid ──────────────────────────────────────── */
+.story__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5px;
+  background: var(--border);
+  border: 1.5px solid var(--border);
+  overflow: hidden;
+}
+
+.story__card {
+  background: var(--paper);
+  padding: 2.5rem 2.25rem 2.75rem;
+  position: relative;
+  transition: background 0.22s ease;
+}
+.story__card:hover { background: var(--cream); }
+
+.story__card-num {
+  display: block;
+  font-family: var(--serif);
+  font-size: 3rem;
+  font-weight: 400;
+  color: var(--beige);
+  line-height: 1;
+  margin-bottom: 1rem;
+}
+
+.story__card-accent {
+  width: 2rem;
+  height: 2px;
+  margin-bottom: 1.25rem;
+  border-radius: 2px;
+}
+
+.story__card-title {
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: var(--espresso);
+  margin-bottom: 0.65rem;
+}
+
+.story__card-body {
+  font-size: 0.9rem;
+  line-height: 1.75;
+  color: var(--text-muted);
+}
+
+@media (max-width: 800px) {
+  .story__grid {
+    grid-template-columns: 1fr;
+    border: 1.5px solid var(--border);
+  }
+  .story__card { padding: 2rem 1.75rem; }
+}

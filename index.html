@@ -1,10 +1,69 @@
 <!doctype html>
-<html lang="en">
+<html lang="hu">
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>kelet</title>
+    <meta name="description" content="Kelet Kávézó és Galéria — meleg hangulatú kávézó, könyves sarok és galéria Budapest IX. kerületében, a Ráday utcán." />
+    <meta property="og:title" content="Kelet Kávézó és Galéria" />
+    <meta property="og:description" content="Kávé, könyvek, képek — egy helyen. Budapest, Bartók Béla út 29." />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="/hero-01-exterior-sign.jpg" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Kelet Kávézó és Galéria" />
+    <meta name="twitter:description" content="Kávé, könyvek, képek — egy helyen. Budapest, Bartók Béla út 29." />
+    <meta name="twitter:image" content="/hero-01-exterior-sign.jpg" />
+    <title>Kelet Kávézó és Galéria — Budapest, Bartók Béla út</title>
+
+    <!-- Fonts: preconnect first, then non-blocking stylesheet -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&display=swap"
+    />
+
+    <!-- Preload critical hero images -->
+    <link rel="preload" as="image" href="/hero-01-exterior-sign.jpg" />
+    <link rel="preload" as="image" href="/hero-03-coffee-latte.jpg" />
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "CafeOrCoffeeShop",
+      "name": "Kelet Kávézó és Galéria",
+      "image": "/hero-01-exterior-sign.jpg",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Bartók Béla út 29.",
+        "addressLocality": "Budapest",
+        "postalCode": "1114",
+        "addressCountry": "HU"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": 47.4766,
+        "longitude": 19.0516
+      },
+      "telephone": "+36201111111",
+      "url": "https://www.facebook.com/keletkavezo",
+      "sameAs": ["https://www.facebook.com/keletkavezo"],
+      "priceRange": "800–4500 Ft",
+      "servesCuisine": ["Kávé", "Brunch", "Reggeli", "Sütemény"],
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.8",
+        "reviewCount": "72",
+        "bestRating": "5"
+      },
+      "openingHours": [
+        "Mo-We 07:30-22:00",
+        "Th-Fr 07:30-23:00",
+        "Sa 09:00-23:00",
+        "Su 09:00-22:00"
+      ]
+    }
+    </script>
   </head>
   <body>
     <div id="root"></div>
