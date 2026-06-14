@@ -145,6 +145,10 @@
 }
 
 @media (max-width: 900px) {
-  .hdr__nav, .hdr__cta { display: none; }
+  .hdr__nav { display: none; }
+  /* Higher specificity than the global `.btn` rule, which otherwise re-shows
+     the CTA and pushes the burger off the right edge. The bottom
+     MobileActionBar already provides the Asztalfoglalás action on mobile. */
+  .hdr__bar .hdr__cta { display: none; }
   .hdr__burger { display: flex; }
 }

@@ -44,10 +44,14 @@
   height: 100%;
   object-fit: cover;
   z-index: 0;
+  /* Demo mode: blur the real (unpublished) photos. Scale up so the
+     blurred edges don't reveal the card background underneath. */
+  filter: blur(14px);
+  transform: scale(1.16);
   transition: transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
 }
 .gallery__card:hover .gallery__card-img {
-  transform: scale(1.04);
+  transform: scale(1.2);
 }
 
 .gallery__card-overlay {
